@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Binary",
+        "repositoryURL": "git@github.com:spacenation/binary-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "b66515c8f8476d4be165354b3d0c994ecdfdedfb",
+          "version": "0.1.2"
+        }
+      },
+      {
+        "package": "Functional",
+        "repositoryURL": "git@github.com:spacenation/functional.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "996fabe983c6b59729f5fd2f52b54db9621f406e",
+          "version": "0.3.4"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
