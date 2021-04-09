@@ -12,11 +12,11 @@
       },
       {
         "package": "Functional",
-        "repositoryURL": "git@github.com:spacenation/functional.swift.git",
+        "repositoryURL": "git@github.com:spacenation/functional-swift.git",
         "state": {
           "branch": null,
-          "revision": "996fabe983c6b59729f5fd2f52b54db9621f406e",
-          "version": "0.3.4"
+          "revision": "c75d470e8eaca490ca3f717133b695fc8d1e21a5",
+          "version": "0.3.5"
         }
       }
     ]
