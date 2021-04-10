@@ -4,30 +4,27 @@ import Functional
 import Binary
 
 final class EncoderTests: XCTestCase {
-    func testEncoder() {
-        
-//        enum EncoderError: Error {
-//            case undefined
-//        }
-//        
-        func number(_ n: Int) -> BinaryEncoder<Int> {
-            BinaryEncoder((n, List.list(.one, .list(.zero, .empty))))
+    func testUInt8Encoder() {
+        switch uInt8(3) {
+        case .success(let bits):
+            XCTAssertEqual(bits, [.zero, .zero, .zero, .zero, .zero, .zero, .one, .one])
+        default:
+            XCTFail()
         }
-//        
-        let one = BinaryEncoder((Bit.one, List.list(.one, .empty)))
-//        
-//        let zero = BinaryEncoder(Bit.zero, List.list(.zero, .empty))
-//        
-//        let other = BinaryEncoder(8, List.list(.zero, .empty))
-//    
-//        let encoder: BinaryEncoder<List<Bit>> =
-//            List<Bit>.pure(.empty) >>- one
-//
-                //print(encoder.encode.1)
-        ///XCTAssertEqual(encoder.accumulator, List.list(.one, .list(.zero, .empty)))
     }
-
-    static var allTests = [
-        ("testEncoder", testEncoder),
-    ]
+    
+    func testBinaryEncodable() {
+        struct Some: BinaryEncodable {
+            let this: UInt8
+            let that: UInt8
+            
+            static var binaryEncoder: BinaryEncoder<Some> {
+                BinaryEncoder { input in
+                    uInt8(input.this) <> uInt8(input.that)
+                }
+            }
+        }
+        
+        XCTAssertEqual(try? Some(this: 8, that: 9).encodedData(), Data([8, 9]))
+    }
 }
