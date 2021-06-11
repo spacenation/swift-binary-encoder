@@ -1,7 +1,5 @@
 import XCTest
 @testable import BinaryEncoder
-import Functional
-import Binary
 
 final class EncoderTests: XCTestCase {
     func testUInt8Encoder() {
@@ -20,7 +18,7 @@ final class EncoderTests: XCTestCase {
             
             static var binaryEncoder: BinaryEncoder<Some> {
                 BinaryEncoder { input in
-                    uInt8(input.this) <> uInt8(input.that)
+                    uInt8(input.this) + uInt8(input.that)
                 }
             }
         }

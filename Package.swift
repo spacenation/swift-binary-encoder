@@ -12,7 +12,7 @@ let package = Package(
             targets: ["BinaryEncoder"]),
     ],
     dependencies: [
-        .package(name: "Functional", url: "git@github.com:spacenation/functional-swift.git", from: "0.3.5"),
+        .package(name: "Encoder", url: "git@github.com:spacenation/swift-encoder.git", from: "0.1.0"),
         .package(name: "Binary", url: "git@github.com:spacenation/binary-swift.git", from: "0.1.1")
     ],
     targets: [
@@ -20,7 +20,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "BinaryEncoder",
-            dependencies: ["Binary", "Functional"]),
+            dependencies: ["Encoder", "Binary"]),
         .testTarget(
             name: "BinaryEncoderTests",
             dependencies: ["BinaryEncoder"]),
