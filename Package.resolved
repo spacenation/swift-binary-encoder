@@ -3,20 +3,38 @@
     "pins": [
       {
         "package": "Binary",
-        "repositoryURL": "git@github.com:spacenation/binary-swift.git",
+        "repositoryURL": "git@github.com:spacenation/swift-binary.git",
         "state": {
           "branch": null,
-          "revision": "b66515c8f8476d4be165354b3d0c994ecdfdedfb",
-          "version": "0.1.2"
+          "revision": "84d1d0309736232da7f3473c8c7609aa436e1b8a",
+          "version": "0.1.7"
         }
       },
       {
-        "package": "Functional",
-        "repositoryURL": "git@github.com:spacenation/functional-swift.git",
+        "package": "Encoder",
+        "repositoryURL": "git@github.com:spacenation/swift-encoder.git",
         "state": {
           "branch": null,
-          "revision": "c75d470e8eaca490ca3f717133b695fc8d1e21a5",
-          "version": "0.3.5"
+          "revision": "25d9a4be49f2d9760cde5f56d61e7e96fb72dc02",
+          "version": "0.2.1"
+        }
+      },
+      {
+        "package": "Functions",
+        "repositoryURL": "git@github.com:spacenation/swift-functions.git",
+        "state": {
+          "branch": null,
+          "revision": "bb058100c78cfed9bf894569f66d5d0ee837fe8f",
+          "version": "0.3.0"
+        }
+      },
+      {
+        "package": "List",
+        "repositoryURL": "git@github.com:spacenation/swift-list.git",
+        "state": {
+          "branch": null,
+          "revision": "fb70a00e7a7cd6fa47ab7fd509ab638a1fe81f04",
+          "version": "0.3.3"
         }
       }
     ]

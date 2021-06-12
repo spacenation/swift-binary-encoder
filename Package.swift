@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -12,8 +12,8 @@ let package = Package(
             targets: ["BinaryEncoder"]),
     ],
     dependencies: [
-        .package(name: "Encoder", url: "git@github.com:spacenation/swift-encoder.git", from: "0.1.0"),
-        .package(name: "Binary", url: "git@github.com:spacenation/binary-swift.git", from: "0.1.1")
+        .package(name: "Encoder", url: "git@github.com:spacenation/swift-encoder.git", from: "0.2.1"),
+        .package(name: "Binary", url: "git@github.com:spacenation/swift-binary.git", from: "0.1.2")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
