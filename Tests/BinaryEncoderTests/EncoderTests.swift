@@ -2,13 +2,20 @@ import XCTest
 @testable import BinaryEncoder
 
 final class EncoderTests: XCTestCase {
-    func testUInt8Encoder() {
-        switch uInt8(3) {
-        case .success(let bits):
-            XCTAssertEqual(bits, [.zero, .zero, .zero, .zero, .zero, .zero, .one, .one])
-        default:
-            XCTFail()
+    func testBinaryEncodable2() {
+        struct Some {
+            let this: UInt8
+            let that: UInt8
         }
+        
+        let encoder = Encoder<Some, Bit> { input in
+            input.this
+            input.that
+        }
+        
+        let result = encoder(Some(this: 8, that: 9))
+        
+        XCTAssertEqual(try? result.data(), Data([8, 9]))
     }
     
     func testBinaryEncodable() {
@@ -16,13 +23,23 @@ final class EncoderTests: XCTestCase {
             let this: UInt8
             let that: UInt8
             
-            static var binaryEncoder: BinaryEncoder<Some> {
-                BinaryEncoder { input in
-                    uInt8(input.this) + uInt8(input.that)
+            static let binaryEncoder = BinaryEncoder<Some> { input in
+                Repeat(2) {
+                    input.this
+                    Repeat(1) {
+                        Section {
+                            input.that
+                        }
+                        
+                        Section {
+                            
+                        }
+                    }
+
                 }
             }
         }
         
-        XCTAssertEqual(try? Some(this: 8, that: 9).encodedData(), Data([8, 9]))
+        XCTAssertEqual(try? Some(this: 8, that: 9).binaryEncoded.data(), Data([8, 9, 8, 9]))
     }
 }
