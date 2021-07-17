@@ -12,7 +12,7 @@ let package = Package(
             targets: ["BinaryEncoder"]),
     ],
     dependencies: [
-        .package(name: "Encoder", url: "git@github.com:spacenation/swift-encoder.git", from: "0.2.2"),
+        .package(name: "Encoder", url: "git@github.com:spacenation/swift-encoder.git", from: "0.2.3"),
         .package(name: "Binary", url: "git@github.com:spacenation/swift-binary.git", from: "0.1.2")
     ],
     targets: [

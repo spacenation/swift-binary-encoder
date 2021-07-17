@@ -9,8 +9,8 @@ final class EncoderTests: XCTestCase {
         }
         
         let encoder = Encoder<Some, Bit> { input in
-            input.this
-            input.that
+            uInt8(input.this) +
+            uInt8(input.that)
         }
         
         let result = encoder(Some(this: 8, that: 9))
@@ -23,23 +23,14 @@ final class EncoderTests: XCTestCase {
             let this: UInt8
             let that: UInt8
             
-            static let binaryEncoder = BinaryEncoder<Some> { input in
-                Repeat(2) {
-                    input.this
-                    Repeat(1) {
-                        Section {
-                            input.that
-                        }
-                        
-                        Section {
-                            
-                        }
-                    }
-
+            static var binaryEncoder: BinaryEncoder<Some> {
+                BinaryEncoder { input in
+                    uInt8(input.this) +
+                    uInt8(input.that)
                 }
             }
         }
         
-        XCTAssertEqual(try? Some(this: 8, that: 9).binaryEncoded.data(), Data([8, 9, 8, 9]))
+        XCTAssertEqual(try? Some(this: 8, that: 9).binaryEncoded.data(), Data([8, 9]))
     }
 }

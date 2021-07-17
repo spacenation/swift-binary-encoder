@@ -1,7 +1,7 @@
 import Foundation
 
 public extension EncoderBuilder {
-    typealias BinaryComponent = Result<List<Bit>, EncodingError>
+    typealias BinaryComponent = Result<List<Bit>, EncodingFailure>
     
     static func buildBlock() -> BinaryComponent {
         .success(.empty)
@@ -40,7 +40,7 @@ public extension EncoderBuilder {
         .success(expression)
     }
     
-    static func buildExpression<T: Encodable>(_ expression: T) -> Result<List<T.Primitive>, T.Failure> where T.Primitive == Bit, T.Failure == EncodingError {
+    static func buildExpression<T: Encodable>(_ expression: T) -> Result<List<T.Primitive>, T.Failure> where T.Primitive == Bit, T.Failure == EncodingFailure {
         expression.encoded
     }
     
