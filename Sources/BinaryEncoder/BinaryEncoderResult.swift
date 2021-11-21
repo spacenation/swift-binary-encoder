@@ -1,8 +1,8 @@
 import Foundation
 
-public typealias BinaryEncodingResult = Result<List<Bit>, EncodingFailure>
+public typealias BinaryEncoderResult = Result<List<Bit>, BinaryEncoderFailure>
 
-public extension BinaryEncodingResult {
+public extension BinaryEncoderResult {
     func data() throws -> Data {
         switch self {
         case .success(let result):

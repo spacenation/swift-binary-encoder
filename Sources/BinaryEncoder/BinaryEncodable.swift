@@ -1,15 +1,15 @@
 import Foundation
 @_exported import Binary
-@_exported import Encoder
-
-public typealias BinaryEncoder<Element> = Encoder<Element, Bit>
+@_exported import Functions
+@_exported import Currying
+@_exported import List
 
 public protocol BinaryEncodable {
     static var binaryEncoder: BinaryEncoder<Self> { get }
 }
 
 public extension BinaryEncodable {
-    var binaryEncoded: BinaryEncodingResult {
+    var binaryEncoded: BinaryEncoderResult {
         Self.binaryEncoder(self)
     }
 }

@@ -3,6 +3,6 @@ import Binary
 
 public var bool: BinaryEncoder<Bool> {
     BinaryEncoder { input in
-        Result<List<Bit>, EncodingFailure>.success(input ? [.one] : [.zero])
+        Result<List<Bit>, BinaryEncoderFailure>.success(input ? [.one] : [.zero])
     }
 }

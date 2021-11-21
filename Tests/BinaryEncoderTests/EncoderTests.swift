@@ -8,7 +8,7 @@ final class EncoderTests: XCTestCase {
             let that: UInt8
         }
         
-        let encoder = Encoder<Some, Bit> { input in
+        let encoder = BinaryEncoder<Some> { input in
             uInt8(input.this) +
             uInt8(input.that)
         }
