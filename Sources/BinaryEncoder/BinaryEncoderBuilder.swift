@@ -1,39 +1,29 @@
 import Foundation
 
 @resultBuilder public struct BinaryEncoderBuilder {
-    typealias BinaryComponent = Result<List<Bit>, BinaryEncoderFailure>
+    public typealias Component = Result<List<Bit>, BinaryEncoderFailure>
     
-    static func buildBlock() -> BinaryComponent {
+    static func buildBlock() -> Component {
         .success(.empty)
     }
     
-//    static func buildBlock<D1, D2>(_ d1: BinaryDecoder<D1>, _ d2: BinaryDecoder<D2>) -> (BinaryDecoder<(D1, D2)>) {
-//        BinaryDecoder {
-//            d1($0).flatMap { first in
-//                d2(first.next).flatMap { second in
-//                    .success((element: (first.element, second.element), next: second.next))
-//                }
-//            }
-//        }
-//    }
-    
-    static func buildExpression(_ expression: UInt8) -> BinaryComponent {
+    public static func buildExpression(_ expression: UInt8) -> Component {
         .success(expression.bitsList)
     }
     
-    static func buildExpression(_ expression: UInt16) -> BinaryComponent {
+    public static func buildExpression(_ expression: UInt16) -> Component {
         .success(expression.bytesList.flatMap { $0.bitsList })
     }
     
-    static func buildExpression(_ expression: UInt32) -> BinaryComponent {
+    public static func buildExpression(_ expression: UInt32) -> Component {
         .success(expression.bytesList.flatMap { $0.bitsList })
     }
     
-    static func buildExpression(_ expression: UInt64) -> BinaryComponent {
+    public static func buildExpression(_ expression: UInt64) -> Component {
         .success(expression.bytesList.flatMap { $0.bitsList })
     }
     
-    static func buildExpression(_ expression: Bool) -> BinaryComponent {
+    public static func buildExpression(_ expression: Bool) -> Component {
         switch expression {
         case true:
             return .success([.one])
@@ -42,42 +32,43 @@ import Foundation
         }
     }
     
-    static func buildExpression(_ expression: Bit) -> BinaryComponent {
+    public static func buildExpression(_ expression: Bit) -> Component {
         .success(List.init(head: expression))
     }
     
-    static func buildExpression(_ expression: List<Bit>) -> BinaryComponent {
+    public static func buildExpression(_ expression: List<Bit>) -> Component {
         .success(expression)
     }
     
-    static func buildExpression<T: BinaryEncodable>(_ expression: T) -> BinaryComponent {
+    public static func buildExpression(_ expression: BinaryEncoder<Void>) -> Component {
+        expression()
+    }
+    
+    public static func buildExpression<T: BinaryEncodable>(_ expression: T) -> Component {
         expression.binaryEncoded
     }
     
-    public static func buildEither<Primitive, Failure: Error>(first component: Result<List<Primitive>, Failure>) -> Result<List<Primitive>, Failure> {
+    public static func buildEither(first component: Component) -> Component {
         component
     }
     
-    public static func buildEither<Primitive, Failure: Error>(second component: Result<List<Primitive>, Failure>) -> Result<List<Primitive>, Failure> {
+    public static func buildEither(second component: Component) -> Component {
         component
     }
     
-    public static func buildExpression<Primitive, Failure: Error>(_ expression: Result<List<Primitive>, Failure>) -> Result<List<Primitive>, Failure> {
+    public static func buildExpression(_ expression: Component) -> Component {
         expression
     }
     
-    public static func buildBlock<Primitive, Failure: Error>(_ components: Result<List<Primitive>, Failure>...) -> Result<List<Primitive>, Failure> {
+    public static func buildBlock(_ components: Component...) -> Component {
         components.reduce(.success(.empty), +)
     }
 }
 
-public func +<Failure, Primitive>(lhs: Result<List<Primitive>, Failure>, rhs: Result<List<Primitive>, Failure>) -> Result<List<Primitive>, Failure>  {
-    switch (lhs, rhs) {
-    case (.success(let s1), .success(let s2)):
-        return .success(s1.append(s2))
-    case (.failure(let e1), _):
-        return .failure(e1)
-    case (_ , .failure(let e2)):
-        return .failure(e2)
+private func +<Failure, Primitive>(lhs: Result<List<Primitive>, Failure>, rhs: Result<List<Primitive>, Failure>) -> Result<List<Primitive>, Failure> {
+    lhs.flatMap { s1 in
+        rhs.flatMap { s2 in
+            .success(s1.append(s2))
+        }
     }
 }

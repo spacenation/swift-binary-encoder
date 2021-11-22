@@ -16,3 +16,9 @@ public struct BinaryEncoder<Element> {
         encode(input)
     }
 }
+
+public extension BinaryEncoder where Element == Void {
+    func callAsFunction() -> Output {
+        encode(())
+    }
+}

@@ -1,7 +1,9 @@
 import Foundation
 
 extension BinaryEncoder {
-    public static func pure(_ a: List<Bit>) -> Self {
-        BinaryEncoder { _ in Result<List<Bit>, BinaryEncoderFailure>.success(a) }
-    }
+
+}
+
+public func pure<A>(_ a: List<Bit>) -> BinaryEncoder<A> {
+    BinaryEncoder<A> { _ in .success(a) }
 }
